@@ -1,0 +1,11 @@
+node_modules/
+.shadow-cljs/
+target/
+dev/dev-js/
+docs/en/schools/new-york/assets/js/cljs-runtime/
+docs/en/schools/new-york/assets/js/manifest.edn
+.DS_Store
+# Police de l'application (licence commerciale), utilisée seulement au build
+screens/fonts/
+# Revue interne (non publiée)
+REVUE.md

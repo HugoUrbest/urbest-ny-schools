@@ -1,0 +1,30 @@
+;; Builds :
+;;   :app   — bundle navigateur (hydrate le HTML pré-rendu).
+;;            Release -> docs/en/schools/new-york/assets/js/main.js
+;;   :tools — script Node : css (feuille de style garden), screens (captures traduites), og-image (image de partage), prerender (page et fichiers d'intégration)
+{:source-paths ["src"]
+
+ :dependencies [[reagent "1.2.0"]
+                [re-frame "1.3.0"]
+                [garden "1.3.10"]]
+
+ ;; En dev : http://localhost:8290/en/schools/new-york/dev.html (rendu côté client, rechargement à chaud)
+ ;;          http://localhost:8290/en/schools/new-york/          (page pré-rendue, après `npm run build`)
+ :dev-http {8290 {:roots ["docs" "dev"]}}
+
+ :builds
+ {:app   {:target     :browser
+          :output-dir "docs/en/schools/new-york/assets/js"
+          :asset-path "assets/js"
+          :modules    {:main {:init-fn urbest.ny-schools.core/init}}
+          ;; Le build de dev écrit ailleurs pour ne jamais écraser le bundle publié.
+          :dev        {:output-dir      "dev/dev-js"
+                       :asset-path      "/dev-js"
+                       ;; Pas d'envoi réel du formulaire de démo en développement.
+                       :closure-defines {urbest.ny-schools.config/DEMO_ENDPOINT ""}}}
+
+  :tools {:target           :node-script
+          :main             urbest.ny-schools.tools.cli/main
+          :output-to        "target/tools.js"
+          ;; garden 1.3.10 redéfinit `abs`, ajouté depuis à cljs.core : avertissement sans effet.
+          :compiler-options {:warnings {:redef false}}}}}

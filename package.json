@@ -1,0 +1,25 @@
+{
+  "name": "urbest-ny-schools",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Landing page Urbest pour les districts scolaires de l'État de New York — ClojureScript, shadow-cljs, reagent, re-frame",
+  "scripts": {
+    "dev": "npm run tools && node target/tools.js css && shadow-cljs watch app",
+    "tools": "shadow-cljs compile tools",
+    "css": "npm run tools && node target/tools.js css",
+    "screens": "npm run tools && node target/tools.js screens",
+    "og-image": "npm run tools && node target/tools.js og-image",
+    "prerender": "npm run tools && node target/tools.js prerender",
+    "build": "npm run tools && node target/tools.js screens && node target/tools.js og-image && shadow-cljs release app && node target/tools.js prerender",
+    "serve": "python3 -m http.server 8291 --directory docs"
+  },
+  "devDependencies": {
+    "fontkit": "2.0.4",
+    "shadow-cljs": "2.27.1",
+    "sharp": "0.35.5"
+  },
+  "dependencies": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  }
+}
